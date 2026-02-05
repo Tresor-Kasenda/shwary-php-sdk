@@ -18,9 +18,10 @@ final class WebhookHandler
      */
     public function parsePayload(string $payload): Transaction
     {
+        /** @var array<string, mixed>|null $data */
         $data = json_decode($payload, true);
 
-        if (json_last_error() !== JSON_ERROR_NONE) {
+        if (json_last_error() !== JSON_ERROR_NONE || !is_array($data)) {
             throw new ShwaryException(
                 message: 'Invalid webhook payload: ' . json_last_error_msg(),
                 code: 400
@@ -70,7 +71,7 @@ final class WebhookHandler
      *
      * @param bool $success Indicates whether processing was successful
      * @param string $message Optional message
-     * @return array Array to encode as JSON for the response
+     * @return array<string, mixed> Array to encode as JSON for the response
      */
     public function createResponse(bool $success, string $message = ''): array
     {

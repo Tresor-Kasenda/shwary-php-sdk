@@ -1,0 +1,9 @@
+parameters:
+    level: max
+    paths:
+        - src
+    excludePaths:
+        - vendor
+    
+    # Treat phpdoc types as certain
+    treatPhpDocTypesAsCertain: false

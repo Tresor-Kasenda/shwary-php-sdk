@@ -9,8 +9,12 @@ use Throwable;
 
 class ShwaryException extends Exception
 {
+    /** @var array<string, mixed> */
     protected array $context = [];
 
+    /**
+     * @param array<string, mixed> $context
+     */
     public function __construct(
         string $message = '',
         int $code = 0,
@@ -21,11 +25,17 @@ class ShwaryException extends Exception
         $this->context = $context;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getContext(): array
     {
         return $this->context;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toArray(): array
     {
         return [

@@ -67,14 +67,23 @@ final class Config
         return sprintf('%s/api/%s', $this->getBaseUrl(), self::API_VERSION);
     }
 
+    /**
+     * @param array<string, mixed> $config
+     */
     public static function fromArray(array $config): self
     {
+        $merchantId = $config['merchant_id'] ?? '';
+        $merchantKey = $config['merchant_key'] ?? '';
+        $baseUrl = $config['base_url'] ?? self::DEFAULT_BASE_URL;
+        $timeout = $config['timeout'] ?? self::DEFAULT_TIMEOUT;
+        $sandbox = $config['sandbox'] ?? false;
+
         return new self(
-            merchantId: $config['merchant_id'] ?? '',
-            merchantKey: $config['merchant_key'] ?? '',
-            baseUrl: $config['base_url'] ?? self::DEFAULT_BASE_URL,
-            timeout: $config['timeout'] ?? self::DEFAULT_TIMEOUT,
-            sandbox: $config['sandbox'] ?? false,
+            merchantId: is_string($merchantId) ? $merchantId : '',
+            merchantKey: is_string($merchantKey) ? $merchantKey : '',
+            baseUrl: is_string($baseUrl) ? $baseUrl : self::DEFAULT_BASE_URL,
+            timeout: is_int($timeout) ? $timeout : (is_numeric($timeout) ? (int) $timeout : self::DEFAULT_TIMEOUT),
+            sandbox: is_bool($sandbox) ? $sandbox : (bool) $sandbox,
         );
     }
 

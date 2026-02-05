@@ -38,6 +38,8 @@ final class ShwaryClient
 
     /**
      * Creates a client from a configuration array.
+     *
+     * @param array<string, mixed> $config
      */
     public static function fromArray(array $config, ?LoggerInterface $logger = null): self
     {

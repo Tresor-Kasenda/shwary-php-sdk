@@ -76,7 +76,7 @@ jobs:
         run: composer update --prefer-dist --no-interaction --no-progress
 
       - name: Run PHPStan
-        run: ./vendor/bin/phpstan analyse src --level=5 --no-progress
+        run: ./vendor/bin/phpstan analyse --memory-limit=256M --no-progress
 
   code-style:
     runs-on: ubuntu-latest

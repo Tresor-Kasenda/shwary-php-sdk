@@ -53,6 +53,9 @@ final readonly class PaymentRequest implements JsonSerializable
             && $parsed['scheme'] === 'https';
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toArray(): array
     {
         $data = [
@@ -67,6 +70,9 @@ final readonly class PaymentRequest implements JsonSerializable
         return $data;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function jsonSerialize(): array
     {
         return $this->toArray();

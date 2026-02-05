@@ -43,6 +43,8 @@ final class HttpClient
     }
 
     /**
+     * @param array<string, mixed> $data
+     * @return array<string, mixed>
      * @throws ApiException
      * @throws AuthenticationException
      */
@@ -52,6 +54,8 @@ final class HttpClient
     }
 
     /**
+     * @param array<string, mixed> $query
+     * @return array<string, mixed>
      * @throws ApiException
      * @throws AuthenticationException
      */
@@ -61,6 +65,9 @@ final class HttpClient
     }
 
     /**
+     * @param array<string, mixed> $data
+     * @param array<string, mixed> $query
+     * @return array<string, mixed>
      * @throws ApiException
      * @throws AuthenticationException
      */
@@ -85,6 +92,7 @@ final class HttpClient
         try {
             $response = $this->client->request($method, $endpoint, $options);
             $body = (string) $response->getBody();
+            /** @var array<string, mixed> $result */
             $result = json_decode($body, true) ?? [];
 
             $this->logger->debug('Shwary API Response', [
@@ -129,6 +137,10 @@ final class HttpClient
         }
     }
 
+    /**
+     * @param array<string, mixed> $data
+     * @return array<string, mixed>
+     */
     private function sanitizeForLog(array $data): array
     {
         $sensitiveKeys = ['merchantKey', 'x-merchant-key', 'clientPhoneNumber'];

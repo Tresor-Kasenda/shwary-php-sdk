@@ -54,6 +54,8 @@ final class Shwary
 
     /**
      * Initializes the SDK from a configuration array.
+     *
+     * @param array<string, mixed> $config
      */
     public static function initFromArray(array $config, ?LoggerInterface $logger = null): void
     {
@@ -88,7 +90,7 @@ final class Shwary
      * Proxies method calls to the client instance.
      *
      * @param string $method
-     * @param array $arguments
+     * @param array<int, mixed> $arguments
      * @return mixed
      */
     public static function __callStatic(string $method, array $arguments): mixed

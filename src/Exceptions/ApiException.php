@@ -13,9 +13,11 @@ class ApiException extends ShwaryException
     public static function fromResponse(ResponseInterface $response): self
     {
         $body = (string) $response->getBody();
+        /** @var array<string, mixed> $data */
         $data = json_decode($body, true) ?? [];
         
-        $message = $data['message'] ?? $data['error'] ?? 'Unknown API error';
+        $messageValue = $data['message'] ?? $data['error'] ?? 'Unknown API error';
+        $message = is_scalar($messageValue) ? (string) $messageValue : 'Unknown API error';
         
         $exception = new self(
             message: $message,
