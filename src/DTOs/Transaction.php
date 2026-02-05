@@ -35,24 +35,28 @@ final readonly class Transaction implements JsonSerializable
      */
     public static function fromArray(array $data): self
     {
+        $completedAt = $data['completedAt'] ?? $data['completed_at'] ?? null;
+        $createdAt = $data['createdAt'] ?? $data['created_at'] ?? null;
+        $updatedAt = $data['updatedAt'] ?? $data['updated_at'] ?? null;
+
         return new self(
             id: $data['id'],
-            userId: $data['userId'],
+            userId: $data['userId'] ?? $data['user_id'],
             amount: (int) $data['amount'],
             currency: $data['currency'],
             type: $data['type'] ?? 'deposit',
             status: TransactionStatus::from($data['status']),
-            recipientPhoneNumber: $data['recipientPhoneNumber'],
-            referenceId: $data['referenceId'],
+            recipientPhoneNumber: $data['recipientPhoneNumber'] ?? $data['recipient_phone_number'],
+            referenceId: $data['referenceId'] ?? $data['reference_id'],
             metadata: $data['metadata'] ?? null,
-            failureReason: $data['failureReason'] ?? null,
-            completedAt: isset($data['completedAt']) 
-                ? new DateTimeImmutable($data['completedAt']) 
+            failureReason: $data['failureReason'] ?? $data['failure_reason'] ?? null,
+            completedAt: $completedAt !== null
+                ? new DateTimeImmutable($completedAt) 
                 : null,
-            createdAt: new DateTimeImmutable($data['createdAt']),
-            updatedAt: new DateTimeImmutable($data['updatedAt']),
-            isSandbox: (bool) ($data['isSandbox'] ?? false),
-            pretiumTransactionId: $data['pretium_transaction_id'] ?? null,
+            createdAt: new DateTimeImmutable($createdAt),
+            updatedAt: new DateTimeImmutable($updatedAt),
+            isSandbox: (bool) ($data['isSandbox'] ?? $data['is_sandbox'] ?? false),
+            pretiumTransactionId: $data['pretiumTransactionId'] ?? $data['pretium_transaction_id'] ?? null,
             error: $data['error'] ?? null,
         );
     }
