@@ -3,7 +3,6 @@
     "description": "SDK PHP officiel pour l'API marchande Shwary - Paiements Mobile Money (RDC, Kenya, Ouganda)",
     "type": "library",
     "license": "MIT",
-    "version": "1.0.0",
     "homepage": "https://github.com/Tresor-Kasenda/shwary-php-sdk",
     "authors": [
         {
